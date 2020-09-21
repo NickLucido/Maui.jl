@@ -1,0 +1,13 @@
+name = "Maui"
+uuid = "0d674811-9593-4a7a-89f5-0aec5fc9f7dc"
+authors = ["Nick Lucido"]
+version = "0.1.0"
+
+[compat]
+julia = "1.1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
