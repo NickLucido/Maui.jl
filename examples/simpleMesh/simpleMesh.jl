@@ -1,13 +1,19 @@
-using Maui
-#import gmsh
+# Include gmsh
+
+if Sys.iswindows()
+    path = Base.Filesystem.splitpath(@__DIR__)
+    include(joinpath(path[1:end-2]..., "Gmsh", "gmsh.jl"))
+else
+    import Gmsh: gmsh
+end
 
 gmsh.initialize()
 gmsh.option.setNumber("General.Terminal", 1) # Print to terminal if available
 
 gmsh.model.add("simpleMesh")
 # Constants
-L  = 1    # Characteristic domain length
-lc = 0.1 # Characteristic mesh length
+L  = 1    # Domain length
+lc = L/5.0 # Characteristic mesh length
 #
 # p4 -------------------------------- p3
 # |                                   |
@@ -28,16 +34,17 @@ L4 = gmsh.model.geo.addLine(p4, p1) # Left
 box  = gmsh.model.geo.addCurveLoop([L4, L1, L2, L3])
 surf = gmsh.model.geo.addPlaneSurface([box], 1)
 
-# Make physical groups:
+# Make physical groups for demonstration:
 tbWall = gmsh.model.addPhysicalGroup(1, [L3, L4])# top/bottom walls
-gmsh.model.addPhysicalGroup(2, [box])
+domain = gmsh.model.addPhysicalGroup(2, [box])
+# Name the physical groups
+gmsh.model.setPhysicalName(1, tbWall, "Top/Bottom Walls")
+gmsh.model.setPhysicalName(2, domain, "Domain")
 
-gmsh.model.setPhysicalName(2, 6, "Domain")
-
+# Create the mesh and write to file
 gmsh.model.geo.synchronize()
-
 gmsh.model.mesh.generate(2)
-
 gmsh.write("simpleMesh.msh")
+
 
 gmsh.finalize()
