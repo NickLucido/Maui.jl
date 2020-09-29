@@ -20,7 +20,7 @@ jobs:
     - julia: nightly
   after_success:
   - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())';
-  # - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(Coveralls.process_folder())';
+  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(Coveralls.process_folder())';
   include:
     - stage: "Documentation"
       julia: 1.5
