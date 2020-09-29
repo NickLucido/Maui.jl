@@ -1,8 +1,8 @@
-using Documenter, Maui
+using Documenter
+using Maui
 
 pages = [
-    "Home" => "index.md",
-        ],
+    "Home" => "index.md"
 ]
 
 makedocs(
