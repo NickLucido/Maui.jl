@@ -6,9 +6,9 @@ pages = [
 ]
 
 makedocs(
-   sitename = "FourierFlows.jl",
+   sitename = "Maui.jl",
     authors = "Nick Lucido",
-    # modules = [Maui],
+    modules = [Maui],
      # format = format,
       pages = pages,
     doctest = true,
