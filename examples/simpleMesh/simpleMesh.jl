@@ -1,5 +1,4 @@
 # Include gmsh
-
 if Sys.iswindows()
     path = Base.Filesystem.splitpath(@__DIR__)
     include(joinpath(path[1:end-2]..., "Gmsh", "gmsh.jl"))
